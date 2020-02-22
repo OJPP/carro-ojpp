@@ -1,7 +1,5 @@
 package com.carros.api;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +16,7 @@ public class CarrosController {
 	private CarroService service;
 
 	@GetMapping
-	public List<Carro> get() {
+	public Iterable<Carro> get() {
 		return service.getCarros();
 	}
 }
