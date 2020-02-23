@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,7 @@ class CarrosApplicationTests {
 	private CarroService carroService;
 
 	@Test
-	void teste1() {
+	public void testSave() {
 
 		Carro carro = new Carro();
 		carro.setNome("Ferrari");
@@ -50,7 +51,10 @@ class CarrosApplicationTests {
 	}
 
 	@Test
-	void teste2() {
+	public void testLista() {
+		
+		List<CarroDTO> carros = carroService.getCarros();
+		assertEquals(30, carros.size());
 	}
 
 }
