@@ -76,29 +76,30 @@ public class CarroService {
 		return CarroDTO.create(rep.save(carro));
 	}
 
-//	public CarroDTO update(CarroDTO carro, Long id) {
-//
-//		Assert.notNull(id, "Não foi possivel actualizar o registo");
-//
-////		// Busca o carro na base de dados
-////        Optional<Carro> carroOptional = rep.findById(id);
-////
-////		if(carroOptional.isPresent()) {
-////			Carro carroDB = carroOptional.get();
-////
-////			// Copiar as propriedades
-////			carroDB.setNome(carro.getNome());
-////			carroDB.setTipo(carro.getTipo());
-////			System.out.println("Carro id " + carroDB.getId());
-////			
-////			//Actualiza o carro
-////			rep.save(carroDB);
-////
-////			return carroDB;
-////		} else {
-////			throw new RuntimeException("Não foi possivel actualizar o registo");
-////		}
-//
+	public CarroDTO update(Carro carro, Long id) {
+
+		Assert.notNull(id, "Não foi possivel actualizar o registo");
+
+		// Busca o carro na base de dados
+        Optional<Carro> carroOptional = rep.findById(id);
+
+		if(carroOptional.isPresent()) {
+			Carro carroDB = carroOptional.get();
+
+			// Copiar as propriedades
+			carroDB.setNome(carro.getNome());
+			carroDB.setTipo(carro.getTipo());
+			System.out.println("Carro id " + carroDB.getId());
+			
+			//Actualiza o carro
+			rep.save(carroDB);
+
+			return CarroDTO.create(carroDB);
+		} else {
+			return null;
+			// throw new RuntimeException("Não foi possivel actualizar o registo");
+		}
+
 //		this.getCarroById(id).map( carroDB -> {
 //			// Copiar as propriedades
 //			carroDB.setNome(carro.getNome());
@@ -110,9 +111,8 @@ public class CarroService {
 //
 //			return carroDB;
 //		}).orElseThrow( () -> new RuntimeException("Não foi possivel actualizar o registo"));
-//
-//		return null;
-//	}
+
+	}
 
 	public void delete(Long id) {
 		rep.deleteById(id);
