@@ -28,7 +28,7 @@ class CarrosApplicationTests {
 		Carro carro = new Carro();
 		carro.setNome("Ferrari");
 		carro.setTipo("esportivo");
-		
+
 		CarroDTO carroDTO = carroService.insert(carro);
 		assertNotNull(carroDTO);
 		
@@ -55,6 +55,27 @@ class CarrosApplicationTests {
 		
 		List<CarroDTO> carros = carroService.getCarros();
 		assertEquals(30, carros.size());
+	}
+
+	@Test
+	public void testListaPorTipo() {
+		
+		assertEquals(10, carroService.getCarrosByTipo("classicos").size());
+		assertEquals(10, carroService.getCarrosByTipo("esportivos").size());
+		assertEquals(10, carroService.getCarrosByTipo("luxo").size());
+
+		assertEquals(0, carroService.getCarrosByTipo("x").size());
+
+	}
+
+	@Test
+	public void testGet() {
+
+		Optional<CarroDTO> carroDTOOp = carroService.getCarroById(11L);
+		assertTrue(carroDTOOp.isPresent());
+		
+		CarroDTO carroDTOBd = carroDTOOp.get();
+		assertEquals("Ferrari FF", carroDTOBd.getNome());
 	}
 
 }

@@ -42,7 +42,7 @@ public class CarroService {
 	}
 
 	public CarroDTO insert(Carro carro) {
-		Assert.isNull(carro.getId(), "Não foi possível inserir o registo");
+		Assert.isTrue(carro.getId() == 0, "Não foi possível inserir o registo");
 
 		return CarroDTO.create(rep.save(carro));
 	}

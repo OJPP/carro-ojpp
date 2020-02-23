@@ -13,8 +13,13 @@ public class Carro {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private long id;
 	private String nome;
+	private String descricao;
+	private String url_Foto;
+	private String url_Video;
+	private String latitude;
+	private String longitude;
 	private String tipo;
 
 }
