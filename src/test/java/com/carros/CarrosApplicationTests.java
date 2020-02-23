@@ -7,7 +7,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 class CarrosApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void teste1() {
+	}
+
+	@Test
+	void teste2() {
 	}
 
 }
