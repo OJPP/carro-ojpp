@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 //import org.springframework.util.Assert;
+import org.springframework.util.Assert;
 
 import com.carros.domain.dto.CarroDTO;
 
@@ -70,8 +71,9 @@ public class CarroService {
 
 	}
 
-	public Carro insert(Carro carro) {
-		return rep.save(carro);
+	public CarroDTO insert(Carro carro) {
+		Assert.isNull(carro.getId(), "Não foi possível inserir o registo");
+		return CarroDTO.create(rep.save(carro));
 	}
 
 //	public CarroDTO update(CarroDTO carro, Long id) {

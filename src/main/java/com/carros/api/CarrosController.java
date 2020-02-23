@@ -1,5 +1,6 @@
 package com.carros.api;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.carros.domain.Carro;
 import com.carros.domain.CarroService;
 import com.carros.domain.dto.CarroDTO;
+import com.carros.utils.HttpUtils;
 
 @RestController
 @RequestMapping("/api/v1/carros")
@@ -67,9 +69,16 @@ public class CarrosController {
 	}
 
 	@PostMapping
-	public String post(@RequestBody Carro carro) {
-		Carro c = service.insert(carro);
-		return "Carro salvo com sucesso: " + c.getId();
+	public ResponseEntity<?> post(@RequestBody Carro carro) {
+		
+		try {
+			CarroDTO carroDTO = service.insert(carro);
+			URI location = (new HttpUtils()).getUri(carroDTO.getId());
+			return ResponseEntity.created(location).build();
+
+		} catch(Exception ex) {
+			return ResponseEntity.badRequest().build();
+		}
 	}
 
 //	@PutMapping("/{id}")
