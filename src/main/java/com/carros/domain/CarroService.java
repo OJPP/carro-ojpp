@@ -21,14 +21,14 @@ public class CarroService {
 		return rep
 				.findAll()
 				.stream()
-				.map(CarroDTO::new)
+				.map(CarroDTO::create)
 				.collect(Collectors.toList());
 
 //		List<Carro> carros = rep.findAll();
 
 //		List<CarroDTO> carrosDTO = carros
 //				.stream()
-//				.map(CarroDTO::new)
+//				.map(CarroDTO::create)
 //				.collect(Collectors.toList());
 
 //		List<CarroDTO> carrosDTO = carros
@@ -46,7 +46,7 @@ public class CarroService {
 
 	public Optional<CarroDTO> getCarroById(Long id) {
 
-		return rep.findById(id).map(CarroDTO::new);
+		return rep.findById(id).map(CarroDTO::create);
 
 //		Optional<Carro> carro = rep.findById(id);
 //		if(carro.isPresent()) {
@@ -65,7 +65,7 @@ public class CarroService {
 		return rep
 				.findByTipo(tipo)
 				.stream()
-				.map(CarroDTO::new)
+				.map(CarroDTO::create)
 				.collect(Collectors.toList());
 
 	}
