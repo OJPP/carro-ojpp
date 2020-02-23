@@ -1,7 +1,5 @@
 package com.carros.api;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,8 +29,28 @@ public class CarrosController {
 	}
 
 	@GetMapping("/{id}")
-	public Optional<Carro> get(@PathVariable Long id) {
-		return service.getCarroById(id);
+	public ResponseEntity<Carro> get(@PathVariable Long id) {
+
+		return service.getCarroById(id)
+				.map( ResponseEntity::ok)
+				.orElse(ResponseEntity.notFound().build());
+
+//		return service.getCarroById(id)
+//				.map( carro -> ResponseEntity.ok(carro))
+//				.orElse(ResponseEntity.notFound().build());
+
+//		Optional<Carro> carroOpcional = service.getCarroById(id);
+
+//		return carroOpcional.isPresent() ?
+//				ResponseEntity.ok(carroOpcional.get()) :
+//				ResponseEntity.notFound().build();
+
+//		if(carroOpcional.isPresent()) {
+//			return ResponseEntity.ok(carroOpcional.get());
+//		} else {
+//			return ResponseEntity.notFound().build();
+//		}
+
 	}
 
 	@GetMapping("/tipo/{tipo}")
