@@ -18,47 +18,17 @@ public class CarroService {
 	private CarroRepository rep;
 
 	public List<CarroDTO> getCarros() {
-		
 		return rep
 				.findAll()
 				.stream()
 				.map(CarroDTO::create)
 				.collect(Collectors.toList());
-
-//		List<Carro> carros = rep.findAll();
-
-//		List<CarroDTO> carrosDTO = carros
-//				.stream()
-//				.map(CarroDTO::create)
-//				.collect(Collectors.toList());
-
-//		List<CarroDTO> carrosDTO = carros
-//				.stream()
-//				.map( carro -> new CarroDTO(carro))
-//				.collect(Collectors.toList());
-
-//		List<CarroDTO> carrosDTO = new ArrayList<CarroDTO>();
-//		for(Carro carro: carros) {
-//			carrosDTO.add(new CarroDTO(carro));
-//		}
-
-//		return carrosDTO;
 	}
 
 	public Optional<CarroDTO> getCarroById(Long id) {
-
-		return rep.findById(id).map(CarroDTO::create);
-
-//		Optional<Carro> carro = rep.findById(id);
-//		if(carro.isPresent()) {
-//			return Optional.of(new CarroDTO(carro.get()));
-//		} else {
-//			return null;
-//		}
-
-//		Optional<Carro> carro = rep.findById(id);
-//		return carro.map( value -> Optional.of(new CarroDTO(value))).orElse(null);
-		
+		return rep
+				.findById(id)
+				.map(CarroDTO::create);
 	}
 
 	public List<CarroDTO> getCarrosByTipo(String tipo) {
@@ -73,25 +43,25 @@ public class CarroService {
 
 	public CarroDTO insert(Carro carro) {
 		Assert.isNull(carro.getId(), "Não foi possível inserir o registo");
+
 		return CarroDTO.create(rep.save(carro));
 	}
 
 	public CarroDTO update(Carro carro, Long id) {
-
 		Assert.notNull(id, "Não foi possivel actualizar o registo");
 
 		// Busca o carro na base de dados
-        Optional<Carro> carroOptional = rep.findById(id);
+		Optional<Carro> carroOptional = rep.findById(id);
 
-		if(carroOptional.isPresent()) {
+		if (carroOptional.isPresent()) {
 			Carro carroDB = carroOptional.get();
 
 			// Copiar as propriedades
 			carroDB.setNome(carro.getNome());
 			carroDB.setTipo(carro.getTipo());
 			System.out.println("Carro id " + carroDB.getId());
-			
-			//Actualiza o carro
+
+			// Actualiza o carro
 			rep.save(carroDB);
 
 			return CarroDTO.create(carroDB);
@@ -100,31 +70,14 @@ public class CarroService {
 			// throw new RuntimeException("Não foi possivel actualizar o registo");
 		}
 
-//		this.getCarroById(id).map( carroDB -> {
-//			// Copiar as propriedades
-//			carroDB.setNome(carro.getNome());
-//			carroDB.setTipo(carro.getTipo());
-//			System.out.println("Carro id " + carroDB.getId());
-//			
-//			//Actualiza o carro
-//			rep.save(carroDB);
-//
-//			return carroDB;
-//		}).orElseThrow( () -> new RuntimeException("Não foi possivel actualizar o registo"));
-
 	}
 
-	public void delete(Long id) {
-		rep.deleteById(id);
+	public boolean delete(Long id) {
+		if (this.getCarroById(id).isPresent()) {
+			rep.deleteById(id);
+			return true;
+		}
+		return false;
 	}
 
-//	public List<Carro> getCarrosFake() {
-//		List<Carro> carros = new ArrayList<Carro>();
-//		
-//		carros.add(new Carro(1L, "Fusca"));
-//		carros.add(new Carro(2L, "Brasilia"));
-//		carros.add(new Carro(3L, "Chevette"));
-//
-//		return carros;
-//	}
 }

@@ -28,8 +28,6 @@ public class CarrosController {
 
 	@GetMapping
 	public ResponseEntity<List<CarroDTO>> get() {
-		// return new ResponseEntity<Iterable<Carro>>(service.getCarros(), HttpStatus.OK);
-		// Atalho (é identico ao comando return definido acima):
 		return ResponseEntity.ok(service.getCarros());
 	}
 
@@ -39,22 +37,6 @@ public class CarrosController {
 		return service.getCarroById(id)
 				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.notFound().build());
-
-//		return service.getCarroById(id)
-//				.map( carro -> ResponseEntity.ok(carro))
-//				.orElse(ResponseEntity.notFound().build());
-
-//		Optional<Carro> carroOpcional = service.getCarroById(id);
-
-//		return carroOpcional.isPresent() ?
-//				ResponseEntity.ok(carroOpcional.get()) :
-//				ResponseEntity.notFound().build();
-
-//		if(carroOpcional.isPresent()) {
-//			return ResponseEntity.ok(carroOpcional.get());
-//		} else {
-//			return ResponseEntity.notFound().build();
-//		}
 
 	}
 
@@ -69,7 +51,7 @@ public class CarrosController {
 	}
 
 	@PostMapping
-	public ResponseEntity<?> post(@RequestBody Carro carro) {
+	public ResponseEntity<String> post(@RequestBody Carro carro) {
 		
 		try {
 			CarroDTO carroDTO = service.insert(carro);
@@ -83,7 +65,6 @@ public class CarrosController {
 
 	@PutMapping("/{id}")
 	public ResponseEntity<CarroDTO> put(@PathVariable Long id, @RequestBody Carro carro) {
-
 		carro.setId(id);
 
 		CarroDTO carroDTO = service.update(carro, id);
@@ -95,8 +76,10 @@ public class CarrosController {
 	}
 
 	@DeleteMapping("/{id}")
-	public String delete(@PathVariable Long id) {
-		service.delete(id);
-		return "Carro eliminado com sucesso: " + id;
+	public ResponseEntity<String> delete(@PathVariable Long id) {
+		boolean ok = service.delete(id);
+		return ok ?
+				ResponseEntity.ok().build() :
+				ResponseEntity.notFound().build();
 	}
 }
