@@ -60,6 +60,13 @@
 			<scope>test</scope>
 		</dependency>
 
+        <!-- H2 -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
+
         <!-- lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
