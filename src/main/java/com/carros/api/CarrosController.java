@@ -77,9 +77,7 @@ public class CarrosController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> delete(@PathVariable Long id) {
-		boolean ok = service.delete(id);
-		return ok ?
-				ResponseEntity.ok().build() :
-				ResponseEntity.notFound().build();
+		service.delete(id);
+		return ResponseEntity.ok().build();
 	}
 }
