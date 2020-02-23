@@ -1,5 +1,7 @@
 package com.carros.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -54,8 +56,13 @@ public class CarrosController {
 	}
 
 	@GetMapping("/tipo/{tipo}")
-	public Iterable<Carro> getCarrosByTipo(@PathVariable String tipo) {
-		return service.getCarrosByTipo(tipo);
+	public ResponseEntity<List<Carro>> getCarrosByTipo(@PathVariable String tipo) {
+
+		List<Carro> carros = service.getCarrosByTipo(tipo);
+
+		return carros.isEmpty() ?
+				ResponseEntity.noContent().build() :
+				ResponseEntity.ok(carros);
 	}
 
 	@PostMapping
