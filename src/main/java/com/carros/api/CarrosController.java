@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+//import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,10 +32,10 @@ public class CarrosController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Carro> get(@PathVariable Long id) {
+	public ResponseEntity<CarroDTO> get(@PathVariable Long id) {
 
 		return service.getCarroById(id)
-				.map( ResponseEntity::ok)
+				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.notFound().build());
 
 //		return service.getCarroById(id)
@@ -72,11 +72,11 @@ public class CarrosController {
 		return "Carro salvo com sucesso: " + c.getId();
 	}
 
-	@PutMapping("/{id}")
-	public String put(@PathVariable Long id, @RequestBody Carro carro) {
-		Carro c = service.update(carro, id);
-		return "Carro actualizado com sucesso: " + c.getId();
-	}
+//	@PutMapping("/{id}")
+//	public String put(@PathVariable Long id, @RequestBody Carro carro) {
+//		Carro c = service.update(carro, id);
+//		return "Carro actualizado com sucesso: " + c.getId();
+//	}
 
 	@DeleteMapping("/{id}")
 	public String delete(@PathVariable Long id) {
