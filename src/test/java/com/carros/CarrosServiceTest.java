@@ -17,7 +17,7 @@ import com.carros.domain.CarroService;
 import com.carros.domain.dto.CarroDTO;
 
 @SpringBootTest
-class CarrosApplicationTests {
+class CarrosServiceTest {
 
 	@Autowired
 	private CarroService carroService;
