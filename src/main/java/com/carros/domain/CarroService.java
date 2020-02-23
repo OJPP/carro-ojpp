@@ -68,6 +68,10 @@ public class CarroService {
 		return null;
 	}
 
+	public void delete(Long id) {
+		rep.deleteById(id);
+	}
+
 	public List<Carro> getCarrosFake() {
 		List<Carro> carros = new ArrayList<Carro>();
 		
