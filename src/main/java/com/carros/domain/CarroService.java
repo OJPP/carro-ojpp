@@ -1,12 +1,14 @@
 package com.carros.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+
+import com.carros.domain.dto.CarroDTO;
 
 @Service
 public class CarroService {
@@ -14,16 +16,46 @@ public class CarroService {
 	@Autowired
 	private CarroRepository rep;
 
-	public Iterable<Carro> getCarros() {
-		return rep.findAll();
+	public List<CarroDTO> getCarros() {
+		
+		return rep
+				.findAll()
+				.stream()
+				.map(CarroDTO::new)
+				.collect(Collectors.toList());
+
+//		List<Carro> carros = rep.findAll();
+
+//		List<CarroDTO> carrosDTO = carros
+//				.stream()
+//				.map(CarroDTO::new)
+//				.collect(Collectors.toList());
+
+//		List<CarroDTO> carrosDTO = carros
+//				.stream()
+//				.map( carro -> new CarroDTO(carro))
+//				.collect(Collectors.toList());
+
+//		List<CarroDTO> carrosDTO = new ArrayList<CarroDTO>();
+//		for(Carro carro: carros) {
+//			carrosDTO.add(new CarroDTO(carro));
+//		}
+
+//		return carrosDTO;
 	}
 
 	public Optional<Carro> getCarroById(Long id) {
 		return rep.findById(id);
 	}
 
-	public List<Carro> getCarrosByTipo(String tipo) {
-		return rep.findByTipo(tipo);
+	public List<CarroDTO> getCarrosByTipo(String tipo) {
+
+		return rep
+				.findByTipo(tipo)
+				.stream()
+				.map(CarroDTO::new)
+				.collect(Collectors.toList());
+
 	}
 
 	public Carro insert(Carro carro) {
@@ -72,13 +104,13 @@ public class CarroService {
 		rep.deleteById(id);
 	}
 
-	public List<Carro> getCarrosFake() {
-		List<Carro> carros = new ArrayList<Carro>();
-		
-		carros.add(new Carro(1L, "Fusca"));
-		carros.add(new Carro(2L, "Brasilia"));
-		carros.add(new Carro(3L, "Chevette"));
-
-		return carros;
-	}
+//	public List<Carro> getCarrosFake() {
+//		List<Carro> carros = new ArrayList<Carro>();
+//		
+//		carros.add(new Carro(1L, "Fusca"));
+//		carros.add(new Carro(2L, "Brasilia"));
+//		carros.add(new Carro(3L, "Chevette"));
+//
+//		return carros;
+//	}
 }
