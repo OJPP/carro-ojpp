@@ -1,17 +1,16 @@
 package com.carros;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.carros.api.exception.ObjectNotFoundException;
 import com.carros.domain.Carro;
 import com.carros.domain.CarroService;
 import com.carros.domain.dto.CarroDTO;
@@ -36,10 +35,9 @@ class CarrosServiceTest {
 		assertNotNull(id);
 
 		// Ler o carro da base de dados
-		Optional<CarroDTO> carroDTOBd = carroService.getCarroById(id);
-		assertTrue(carroDTOBd.isPresent());
-		
-		carroDTO = carroDTOBd.get();
+		carroDTO = carroService.getCarroById(id);
+		assertNotNull(carroDTO);
+
 		assertEquals("Ferrari", carroDTO.getNome());
 		assertEquals("esportivo", carroDTO.getTipo());
 		
@@ -47,7 +45,12 @@ class CarrosServiceTest {
 		carroService.delete(id);
 
 		// Verificar se o carro foi eliminado da base de dados
-		assertFalse(carroService.getCarroById(id).isPresent());
+		try {
+			assertNull(carroService.getCarroById(id));
+			fail("O carro não foi excluído");
+		} catch(ObjectNotFoundException ex) {
+			// OK
+		}
 	}
 
 	@Test
@@ -71,11 +74,10 @@ class CarrosServiceTest {
 	@Test
 	public void testGet() {
 
-		Optional<CarroDTO> carroDTOOp = carroService.getCarroById(11L);
-		assertTrue(carroDTOOp.isPresent());
+		CarroDTO carroDTO = carroService.getCarroById(11L);
+		assertNotNull(carroDTO);
 		
-		CarroDTO carroDTOBd = carroDTOOp.get();
-		assertEquals("Ferrari FF", carroDTOBd.getNome());
+		assertEquals("Ferrari FF", carroDTO.getNome());
 	}
 
 }
