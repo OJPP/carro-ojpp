@@ -33,9 +33,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		auth
 			.inMemoryAuthentication().passwordEncoder(encoder)
-			.withUser("ojpp").password(encoder.encode("albatroz")).roles("USER")
+			.withUser("user").password(encoder.encode("user")).roles("USER")
 			.and()
-			.withUser("admin").password(encoder.encode("password")).roles("USER","ADMIN");
+			.withUser("admin").password(encoder.encode("admin")).roles("USER","ADMIN");
 	}
 	
 }
