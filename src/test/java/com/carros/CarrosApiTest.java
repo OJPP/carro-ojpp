@@ -27,19 +27,19 @@ public class CarrosApiTest {
 	protected TestRestTemplate testRestTemplate;
 
 	private void deleteCarro(String location) {
-        testRestTemplate.delete(location);
+        testRestTemplate.withBasicAuth("ojpp", "albatroz").delete(location);
 	}
 
 	private ResponseEntity<CarroDTO> saveCarro(String url, Carro carro) {
-		return testRestTemplate.postForEntity(url, carro, null);
+		return testRestTemplate.withBasicAuth("ojpp", "albatroz").postForEntity(url, carro, null);
 	}
 
 	private ResponseEntity<CarroDTO> getCarro(String url) {
-		return testRestTemplate.getForEntity(url, CarroDTO.class);
+		return testRestTemplate.withBasicAuth("ojpp", "albatroz").getForEntity(url, CarroDTO.class);
 	}
 
 	private ResponseEntity<List<CarroDTO>> getCarros(String url) {
-		return testRestTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<CarroDTO>>() {});
+		return testRestTemplate.withBasicAuth("ojpp", "albatroz").exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<CarroDTO>>() {});
 	}
 
 	@Test

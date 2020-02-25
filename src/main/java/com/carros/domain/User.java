@@ -22,6 +22,8 @@ import lombok.Data;
 @Data
 public class User implements UserDetails {
 
+	private static final long serialVersionUID = 2575192848718127544L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
